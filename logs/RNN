@@ -1,0 +1,60 @@
+2023-11-21 20:00:17,178 - trainer - INFO - validate_loss is 0.29736894369125366
+2023-11-21 20:00:17,179 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,179 - trainer - INFO - update min_loss, loss is 0.29736894369125366
+2023-11-21 20:00:17,442 - trainer - INFO - validate_loss is 0.29221364855766296
+2023-11-21 20:00:17,445 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,445 - trainer - INFO - update min_loss, loss is 0.29221364855766296
+2023-11-21 20:00:17,720 - trainer - INFO - validate_loss is 0.27906954288482666
+2023-11-21 20:00:17,723 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,723 - trainer - INFO - update min_loss, loss is 0.27906954288482666
+2023-11-21 20:00:17,994 - trainer - INFO - validate_loss is 0.27918320894241333
+2023-11-21 20:00:17,996 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,996 - trainer - INFO - update min_loss, loss is 0.27918320894241333
+2023-11-21 20:00:18,333 - trainer - INFO - validate_loss is 0.29545795917510986
+2023-11-21 20:00:18,336 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,336 - trainer - INFO - update min_loss, loss is 0.29545795917510986
+2023-11-21 20:00:18,694 - trainer - INFO - validate_loss is 0.2832207977771759
+2023-11-21 20:00:18,697 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,697 - trainer - INFO - update min_loss, loss is 0.2832207977771759
+2023-11-21 20:00:18,986 - trainer - INFO - validate_loss is 0.27514931559562683
+2023-11-21 20:00:18,990 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,990 - trainer - INFO - update min_loss, loss is 0.27514931559562683
+2023-11-21 20:00:19,386 - trainer - INFO - validate_loss is 0.27724575996398926
+2023-11-21 20:00:19,391 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,391 - trainer - INFO - update min_loss, loss is 0.27724575996398926
+2023-11-21 20:00:19,659 - trainer - INFO - validate_loss is 0.26702871918678284
+2023-11-21 20:00:19,662 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,662 - trainer - INFO - update min_loss, loss is 0.26702871918678284
+2023-11-21 20:00:19,995 - trainer - INFO - validate_loss is 0.2654781639575958
+2023-11-21 20:00:19,998 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,998 - trainer - INFO - update min_loss, loss is 0.2654781639575958
+-11-21 20:00:17,178 - trainer - INFO - validate_loss is 0.29736894369125366
+2023-11-21 20:00:17,179 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,179 - trainer - INFO - update min_loss, loss is 0.29736894369125366
+2023-11-21 20:00:17,442 - trainer - INFO - validate_loss is 0.29221364855766296
+2023-11-21 20:00:17,445 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,445 - trainer - INFO - update min_loss, loss is 0.29221364855766296
+2023-11-21 20:00:17,720 - trainer - INFO - validate_loss is 0.27906954288482666
+2023-11-21 20:00:17,723 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,723 - trainer - INFO - update min_loss, loss is 0.27906954288482666
+2023-11-21 20:00:17,994 - trainer - INFO - validate_loss is 0.27918320894241333
+2023-11-21 20:00:17,996 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:17,996 - trainer - INFO - update min_loss, loss is 0.27918320894241333
+2023-11-21 20:00:18,333 - trainer - INFO - validate_loss is 0.29545795917510986
+2023-11-21 20:00:18,336 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,336 - trainer - INFO - update min_loss, loss is 0.29545795917510986
+2023-11-21 20:00:18,694 - trainer - INFO - validate_loss is 0.2832207977771759
+2023-11-21 20:00:18,697 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,697 - trainer - INFO - update min_loss, loss is 0.2832207977771759
+2023-11-21 20:00:18,986 - trainer - INFO - validate_loss is 0.27514931559562683
+2023-11-21 20:00:18,990 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:18,990 - trainer - INFO - update min_loss, loss is 0.27514931559562683
+2023-11-21 20:00:19,386 - trainer - INFO - validate_loss is 0.27724575996398926
+2023-11-21 20:00:19,391 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,391 - trainer - INFO - update min_loss, loss is 0.27724575996398926
+2023-11-21 20:00:19,659 - trainer - INFO - validate_loss is 0.26702871918678284
+2023-11-21 20:00:19,662 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,662 - trainer - INFO - update min_loss, loss is 0.26702871918678284
+2023-11-21 20:00:19,995 - trainer - INFO - validate_loss is 0.2654781639575958
+2023-11-21 20:00:19,998 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-11-21 20:00:19,998 - trainer - INFO - update min_loss, loss is 0.2654781639575958

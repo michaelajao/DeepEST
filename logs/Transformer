@@ -1,0 +1,30 @@
+2023-09-08 08:14:58,700 - trainer - INFO - validate_loss is 0.20131418108940125
+2023-09-08 08:14:58,701 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:14:58,701 - trainer - INFO - update min_loss, loss is 0.20131418108940125
+2023-09-08 08:14:59,030 - trainer - INFO - validate_loss is 0.3042162358760834
+2023-09-08 08:14:59,033 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:14:59,033 - trainer - INFO - update min_loss, loss is 0.3042162358760834
+2023-09-08 08:14:59,311 - trainer - INFO - validate_loss is 0.22822347283363342
+2023-09-08 08:14:59,314 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:14:59,314 - trainer - INFO - update min_loss, loss is 0.22822347283363342
+2023-09-08 08:14:59,578 - trainer - INFO - validate_loss is 0.25271543860435486
+2023-09-08 08:14:59,581 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:14:59,581 - trainer - INFO - update min_loss, loss is 0.25271543860435486
+2023-09-08 08:14:59,894 - trainer - INFO - validate_loss is 0.23782674968242645
+2023-09-08 08:14:59,896 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:14:59,896 - trainer - INFO - update min_loss, loss is 0.23782674968242645
+2023-09-08 08:15:00,283 - trainer - INFO - validate_loss is 0.18720632791519165
+2023-09-08 08:15:00,288 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:15:00,288 - trainer - INFO - update min_loss, loss is 0.18720632791519165
+2023-09-08 08:15:00,748 - trainer - INFO - validate_loss is 0.2046222984790802
+2023-09-08 08:15:00,751 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:15:00,751 - trainer - INFO - update min_loss, loss is 0.2046222984790802
+2023-09-08 08:15:01,021 - trainer - INFO - validate_loss is 0.24052923917770386
+2023-09-08 08:15:01,025 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:15:01,025 - trainer - INFO - update min_loss, loss is 0.24052923917770386
+2023-09-08 08:15:01,418 - trainer - INFO - validate_loss is 0.2354959398508072
+2023-09-08 08:15:01,421 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:15:01,421 - trainer - INFO - update min_loss, loss is 0.2354959398508072
+2023-09-08 08:15:01,709 - trainer - INFO - validate_loss is 0.20599551498889923
+2023-09-08 08:15:01,712 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2023-09-08 08:15:01,712 - trainer - INFO - update min_loss, loss is 0.20599551498889923

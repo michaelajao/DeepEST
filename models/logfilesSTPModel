@@ -1,0 +1,21 @@
+2024-05-13 21:12:48,356 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:12:48,357 - trainer - INFO - update min_loss, loss is 0.08721572160720825
+2024-05-13 21:12:53,052 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:12:53,053 - trainer - INFO - update min_loss, loss is 0.04980761557817459
+2024-05-13 21:12:57,197 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:12:57,197 - trainer - INFO - update min_loss, loss is 0.039664965122938156
+2024-05-13 21:13:01,948 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:01,949 - trainer - INFO - update min_loss, loss is 0.030604001134634018
+2024-05-13 21:13:06,516 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:06,516 - trainer - INFO - update min_loss, loss is 0.027920769527554512
+2024-05-13 21:13:11,162 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:11,162 - trainer - INFO - update min_loss, loss is 0.027572831138968468
+2024-05-13 21:13:15,591 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:15,592 - trainer - INFO - update min_loss, loss is 0.023647429421544075
+2024-05-13 21:13:19,897 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:19,898 - trainer - INFO - update min_loss, loss is 0.027819296345114708
+2024-05-13 21:13:24,143 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:24,143 - trainer - INFO - update min_loss, loss is 0.024317217990756035
+2024-05-13 21:13:28,536 - trainer - INFO - ---------------Save Best Checkpoint---------------
+2024-05-13 21:13:28,536 - trainer - INFO - update min_loss, loss is 0.021997638046741486
+2024-05-13 21:13:29,319 - trainer - INFO - {'MSE': 0.028662345869564957, 'RMSE': 0.16929957433367918, 'MAE': 0.09106022144491888, 'R2_SCORE': 0.9719189585703336, 'MAPE': 0.475660703848298, 'PEARSON_CORRELATION': 0.9858620035533978}
