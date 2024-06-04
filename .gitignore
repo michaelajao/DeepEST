@@ -162,9 +162,11 @@ cython_debug/
 
 # ignore 
 
-.models/checkpoints/*
-.models/logfiles/*
-.mdoels/runs/*
+models/checkpoints/*
+models/logfiles/*
+mdoels/runs/*
 test_ipynb
 data/*
 .DS_Store
+**/checkpoints/
+**/logfiles/
