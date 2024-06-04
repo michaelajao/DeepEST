@@ -167,6 +167,7 @@ models/logfiles/*
 mdoels/runs/*
 test_ipynb
 data/*
+.Data/*
 .DS_Store
 **/checkpoints/
 **/logfiles/
