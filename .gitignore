@@ -164,7 +164,7 @@ cython_debug/
 
 models/checkpoints/*
 models/logfiles/*
-mdoels/runs/*
+models/runs/*
 test_ipynb
 data/*
 .Data/*
