@@ -23,10 +23,10 @@ def getMetrics(y_forecast: torch.Tensor, y_target: torch.Tensor):
             the metric values.
 
     Examples:
-        >>> from pyhealth.metrics import binary_metrics_fn
+        >>> from DeepEST.metrics import getMetrics
         >>> y_target = torch.Tensor([0, 0, 1, 1])
         >>> y_forecast = torch.Tensor([0.1, 0.4, 0.35, 0.8])
-        >>>
+        >>> getMetrics(y_target, y_forecast)
     """
 
     metrics = ['MSE', 'RMSE', 'MAE', 'R2_SCORE', 'MAPE','PEARSON_CORRELATION']

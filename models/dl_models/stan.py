@@ -5,6 +5,38 @@ import torch.nn.functional as F
 
 
 class GATLayer(nn.Module):
+    """
+    A Graph Attention Layer module for graph neural networks.
+
+    Parameters:
+    ----------
+    g : DGL.Graph
+        The graph object.
+    input_size : int
+        The size of the input features.
+    out_dim : int
+        The dimensionality of the output features.
+
+    Attributes:
+    -----------
+    fc : torch.nn.Linear
+        The linear transformation layer.
+    attn_fc : torch.nn.Linear
+        The linear layer for calculating attention scores.
+
+    Methods:
+    -------
+    reset_parameters()
+        Reinitialize the parameters of the layer.
+    edge_attention(edges)
+        Compute the attention scores for the edges.
+    message_func(edges)
+        Define the message function in the graph neural network.
+    reduce_func(nodes)
+        Define the reduce function in the graph neural network.
+    forward(h)
+        Forward computation of the GAT layer.
+    """
     def __init__(self, g, input_size, out_dim):
         super(GATLayer, self).__init__()
         self.g = g
@@ -39,6 +71,32 @@ class GATLayer(nn.Module):
 
 
 class MultiHeadGATLayer(nn.Module):
+    """
+    A module consisting of multiple GAT layers, known as Multi-Head GAT.
+
+    Parameters:
+    ----------
+    g : DGL.Graph
+        The graph object.
+    input_size : int
+        The size of the input features.
+    out_dim : int
+        The dimensionality of the output features per head.
+    num_heads : int
+        The number of attention heads.
+    merge : str, optional
+        The way to merge attention heads, either 'cat' for concatenation or 'mean' for averaging.
+
+    Attributes:
+    -----------
+    heads : torch.nn.ModuleList
+        A list of GATLayer instances.
+
+    Methods:
+    -------
+    forward(h)
+        Forward computation of the multi-head GAT layer.
+    """
     def __init__(self, g, input_size, out_dim, num_heads, merge='cat'):
         super(MultiHeadGATLayer, self).__init__()
         self.heads = nn.ModuleList()
@@ -60,6 +118,44 @@ class MultiHeadGATLayer(nn.Module):
 
 
 class STAN(nn.Module):
+    """
+    A Spatio-Temporal Attention Network (STAN) module.
+
+    Parameters:
+    ----------
+    g : DGL.Graph
+        The graph object.
+    input_size : int
+        The size of the input features.
+    pred_window : int
+        The prediction window size.
+    hidden_dim1 : int, optional
+        Hidden layer dimension for the first GAT layer.
+    hidden_dim2 : int, optional
+        Hidden layer dimension for the second GAT layer.
+    gru_dim : int, optional
+        Hidden size of the GRU layer.
+    num_heads : int, optional
+        The number of attention heads in the GAT layers.
+    device : str, optional
+        The device on which the tensor will be allocated.
+
+    Attributes:
+    -----------
+    layer1 : MultiHeadGATLayer
+        The first multi-head GAT layer.
+    layer2 : MultiHeadGATLayer
+        The second multi-head GAT layer.
+    gru : torch.nn.GRU
+        The GRU layer.
+    pred : torch.nn.Linear
+        The prediction layer.
+
+    Methods:
+    -------
+    forward(dynamic, h=None)
+        Forward computation of the STAN module.
+    """
     def __init__(
             self,
             g,
