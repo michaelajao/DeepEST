@@ -1,7 +1,7 @@
 import torch
 from typing import Optional
-from .dataspliter import split_by_spatio_temporal
-from .dataset import DlDataset, MlDataset
+from .dataspliter import split_by_spatial_temporal
+from .dataset import dl_dataset, ml_dataset
 
 
 def merge_timestep(
@@ -10,6 +10,38 @@ def merge_timestep(
     merge_len: int = 1,
     mode: str = "sum",
 ) -> torch.Tensor:
+    """
+    Merges timesteps in dynamic data and label tensors based on the specified mode.
+
+    Parameters:
+    ----------
+    dynamic_data : torch.Tensor
+        Tensor containing dynamic data with shape (N, T, D).
+    label : torch.Tensor
+        Tensor containing labels with shape (N, T, D).
+    merge_len : int, optional
+        Number of timesteps to merge, by default 1.
+    mode : str, optional
+        The method of merging, either 'sum' or 'mean', by default 'sum'.
+
+    Returns:
+    -------
+    torch.Tensor, torch.Tensor
+        Merged dynamic data and label tensors.
+
+    Raises:
+    ------
+    AssertionError
+        If an unknown merge mode is provided.
+
+    Examples:
+    --------
+    >>> dynamic_data = torch.randn(10, 5, 3)  # Example dynamic data
+    >>> label = torch.randn(10, 5, 3)        # Corresponding labels
+    >>> merged_data, merged_label = merge_timestep(dynamic_data, label, merge_len=2, mode='mean')
+    >>> print(merged_data.shape, merged_label.shape)
+    # Output: (torch.Size([10, 3, 3]), torch.Size([10, 3, 3]))
+    """
     dynamic_data = torch.Tensor(dynamic_data)
     label = torch.Tensor(label)
     _, num_time, _ = dynamic_data.shape
@@ -45,8 +77,29 @@ def merge_timestep(
     return new_data, new_label
 
 
-class TemporalDataPreprocess():
-    '''
+class temporal_data_preprocess():
+    
+    """
+    Preprocessing class for temporal data models.
+
+    Attributes:
+    -----------
+    dynamic_data : torch.Tensor
+        The dynamic data tensor to preprocess.
+    static_data : torch.Tensor
+        The static data tensor, if used.
+    label : torch.Tensor
+        The label tensor after preprocessing.
+    input_window : int
+        The size of the input window for the model.
+    output_window : int
+        The size of the output window for the model.
+    data_mixed : bool
+        Whether dynamic and static data are mixed.
+    normalization : str
+        The normalization method applied, if any.
+    stride : int
+        The stride used when creating timesteps.
     kwargs: define the mode of how to choose geometirc information for
     temporal-only models, the format of kwargs is
     {
@@ -60,7 +113,14 @@ class TemporalDataPreprocess():
     }, which means in mode 1, we only use the features of a certain place,
     which is specified by the place parameter,
     which ranges from 0 to N-1. Where N is the total number of places
-    '''
+
+    Examples:
+    --------
+    >>> preprocessor = temporal_data_preprocess(dynamic_data, static_data, label)
+    >>> processed_data, processed_label = preprocessor.get_data(), preprocessor.get_label()
+    >>> print(processed_data.shape, processed_label.shape)
+    # Output: (torch.Size([batches, timesteps, features]), torch.Size([batches, timesteps, 1]))
+    """
     def __init__(
         self,
         dynamic_data: torch.Tensor,
@@ -185,22 +245,22 @@ class TemporalDataPreprocess():
         # print(f'input_data.shape is {input_data.shape}, input_label.shape is {input_label.shape}')
         return input_data, input_label
 
-    def getData(self):
+    def get_data(self):
         return self.data
 
-    def getLabel(self):
+    def get_label(self):
         return self.label
 
-    def getMlData(self):
+    def get_ml_data(self):
         return self.origin_data
 
-    def getMlLabel(self):
+    def get_ml_label(self):
         return self.origin_label
     
-    def getOriginData(self):
+    def get_origin_data(self):
         return self.origin_data
 
-    def getOriginLabel(self):
+    def get_origin_label(self):
         return self.origin_label
 
     def reverse_normalization(self, label_norm, data_norm=None):
@@ -219,22 +279,34 @@ class TemporalDataPreprocess():
         return label
 
 
-class SpatioTemporalDataPreprocess():
-    '''
-    kwargs: define the mode of how to choose geometirc information for
-    temporal-only models, the format of kwargs is
-    {
-        mode:0,
-        method:'sum' or 'mean'
-    }, which means in mode 0, we will use the features of all regions. The
-    specific way to use is: sum or average the features
-    {
-        mode:1
-        place:0 -> N
-    }, which means in mode 1, we only use the features of a certain place,
-    which is specified by the place parameter,
-    which ranges from 0 to N-1. Where N is the total number of places
-    '''
+class spatial_temporal_data_preprocess():
+    """
+    Preprocessing class for spatial-temporal data models.
+
+    Attributes:
+    -----------
+    dynamic_data : torch.Tensor
+        The dynamic data tensor to preprocess.
+    static_data : torch.Tensor
+        The static data tensor to preprocess.
+    label : torch.Tensor
+        The label tensor to preprocess.
+    input_window : int
+        The size of the input window for the model.
+    output_window : int
+        The size of the output window for the model.
+    normalization : str
+        The normalization method applied, if any.
+    stride : int
+        The stride used when creating timesteps.
+
+    Examples:
+    --------
+    >>> preprocessor = spatial_temporal_data_preprocess(dynamic_data, static_data, input_window, output_window, label)
+    >>> processed_data, processed_label = preprocessor.get_data(), preprocessor.get_label()
+    >>> print(processed_data.shape, processed_label.shape)
+    # Output: (torch.Size([batches, locations, input_window, features]), torch.Size([batches, locations,  output_window, 1]))
+    """
     def __init__(
         self,
         dynamic_data: torch.Tensor,
@@ -342,16 +414,16 @@ class SpatioTemporalDataPreprocess():
         # print(f'input_data.shape is {input_data.shape}, input_label.shape is {input_label.shape}')
         return input_data, input_label
 
-    def getData(self):
+    def get_data(self):
         return self.data
 
-    def getLabel(self):
+    def get_label(self):
         return self.label
 
-    def getOriginData(self):
+    def get_origin_data(self):
         return self.origin_data
 
-    def getOriginLabel(self):
+    def get_origin_label(self):
         return self.origin_label
 
     def reverse_normalization(self,  label_norm, data_norm= None):
@@ -369,7 +441,50 @@ class SpatioTemporalDataPreprocess():
             return data, label
         return label
 
-class PreprocessData():
+class preprocess_data():
+    """
+    Class for preprocessing data for machine learning models, supporting both
+    temporal and spatial-temporal data types.
+
+    Parameters:
+    ----------
+    dynamic_data : torch.Tensor
+        The dynamic data tensor to preprocess.
+    static_data : torch.Tensor
+        The static data tensor to preproces.
+    label : torch.Tensor
+        The label tensor to preprocess.
+    input_window : int, optional
+        The size of the input window, by default 1.
+    output_window : int, optional
+        The size of the output window, by default 1.
+    data_mixed : bool, optional
+        Whether to mix dynamic and static data, by default True.
+    normalization : str, optional
+        The normalization method to use ('z-score' or 'min-max'), by default 'z-score'.
+    stride : int, optional
+        The stride for creating timesteps, by default 1.
+    type : str, optional
+        The type of data ('temporal' or 'spatial-temporal'), by default 'temporal'.
+    temporal_rate : list, optional
+        The rate for temporal splitting, by default [0.6, 0.2, 0.2].
+    spatial_indexes : list, optional
+        The indexes for spatial-temporal splitting, by default None.
+    **kwargs : dict, optional
+        Additional keyword arguments for preprocessing modes.
+
+    Attributes:
+    -----------
+    train_process, val_process, test_process :
+        The preprocessing objects for training, validation, and testing data sets.
+
+    Examples:
+    --------
+    >>> preprocessor = preprocess_data(dynamic_data, static_data, labels, type='spatial-temporal')
+    >>> train_data, train_label, val_data, val_label, test_data, test_label = preprocessor.get_data()
+    >>> print(train_data.shape, train_label.shape)
+    # Output: (torch.Size([batches, locations, input_window, features]), torch.Size([batches, locations,  output_window, 1]))
+    """
     def __init__(
         self,
         dynamic_data: torch.Tensor,
@@ -380,13 +495,16 @@ class PreprocessData():
         data_mixed: bool = True,
         normalization: str = 'z-score',
         stride: int = 1,
-        type: str = 'temporal' or 'spatio-temporal',
+        type: str = 'temporal' or 'spatial-temporal',
         temporal_rate: list = [0.6, 0.2, 0.2],
-        spatio_indexes: list = None,
+        spatial_indexes: list = None,
         **kwargs: Optional[dict],
     ):
-        if type != 'temporal' and type != 'spatio-temporal':
-            raise AssertionError('type can only be "temporal" or "spatio-temporal"')
+        """
+        Constructs the preprocess_data object and initializes preprocessing pipelines.
+        """
+        if type != 'temporal' and type != 'spatial-temporal':
+            raise AssertionError('type can only be "temporal" or "spatial-temporal"')
         self.dynamic_data = dynamic_data
         self.static_data = static_data
         self.label = label
@@ -399,95 +517,202 @@ class PreprocessData():
         self.mode_dict = kwargs
         self.temporal_rate = temporal_rate
         num_positions = self.dynamic_data.shape[0]
-        if spatio_indexes is None:
-            self.spatio_indexes = []
+        if spatial_indexes is None:
+            self.spatial_indexes = []
             for i in range(3):
-                self.spatio_indexes.append(list(range(0, num_positions)))
+                self.spatial_indexes.append(list(range(0, num_positions)))
         else:
-            self.spatio_indexes = spatio_indexes
+            self.spatial_indexes = spatial_indexes
         self.train_dynamic_data, self.train_static_data, self.train_label, self.val_dynamic_data, self.val_static_data, self.val_label, self.test_dynamic_data, self.test_static_data, self.test_label = \
-            split_by_spatio_temporal(dynamic_data=self.dynamic_data, static_data=self.static_data, label=self.label, temporal_rate=self.temporal_rate, spatio_indexes=self.spatio_indexes)
+            split_by_spatial_temporal(dynamic_data=self.dynamic_data, static_data=self.static_data, label=self.label, temporal_rate=self.temporal_rate, spatial_indexes=self.spatial_indexes)
 
         if type == 'temporal':
             # print(self.mode_dict)
-            self.train_process = TemporalDataPreprocess(static_data=self.train_static_data, dynamic_data=self.train_dynamic_data, label=self.train_label,
+            self.train_process = temporal_data_preprocess(static_data=self.train_static_data, dynamic_data=self.train_dynamic_data, label=self.train_label,
                                                         input_window=self.input_window, output_window=self.output_window, stride=self.stride, **self.mode_dict)
-            self.val_process = TemporalDataPreprocess(static_data=self.val_static_data, dynamic_data=self.val_dynamic_data, label=self.val_label,
+            self.val_process = temporal_data_preprocess(static_data=self.val_static_data, dynamic_data=self.val_dynamic_data, label=self.val_label,
                                                       input_window=self.input_window, output_window=self.output_window, stride=self.stride, **self.mode_dict)
-            self.test_process = TemporalDataPreprocess(static_data=self.test_static_data, dynamic_data=self.test_dynamic_data, label=self.test_label,
+            self.test_process = temporal_data_preprocess(static_data=self.test_static_data, dynamic_data=self.test_dynamic_data, label=self.test_label,
                                                        input_window=self.input_window, output_window=self.output_window, stride=self.stride, **self.mode_dict)
         else:
-            self.train_process = SpatioTemporalDataPreprocess(static_data=self.train_static_data, dynamic_data=self.train_dynamic_data, label=self.train_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
-            self.val_process = SpatioTemporalDataPreprocess(static_data=self.val_static_data, dynamic_data=self.val_dynamic_data, label=self.val_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
-            self.test_process = SpatioTemporalDataPreprocess(static_data=self.test_static_data, dynamic_data=self.test_dynamic_data, label=self.test_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
+            self.train_process = spatial_temporal_data_preprocess(static_data=self.train_static_data, dynamic_data=self.train_dynamic_data, label=self.train_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
+            self.val_process = spatial_temporal_data_preprocess(static_data=self.val_static_data, dynamic_data=self.val_dynamic_data, label=self.val_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
+            self.test_process = spatial_temporal_data_preprocess(static_data=self.test_static_data, dynamic_data=self.test_dynamic_data, label=self.test_label, input_window=self.input_window, output_window=self.output_window, stride=self.stride)
 
-    def getOriginData(self):
-        train_data = self.train_process.getOriginData()
-        train_label = self.train_process.getOriginLabel()
-        val_data = self.val_process.getOriginData()
-        val_label = self.val_process.getOriginLabel()
-        test_data = self.test_process.getOriginData()
-        test_label = self.test_process.getOriginLabel()
+    def get_origin_data(self):
+        """
+        Retrieves the original data for training, validation, and testing sets.
+
+        Returns:
+        -------
+        tuple of torch.Tensor
+            Original data and labels for train, validation, and test sets.
+        """
+        train_data = self.train_process.get_origin_data()
+        train_label = self.train_process.get_origin_label()
+        val_data = self.val_process.get_origin_data()
+        val_label = self.val_process.get_origin_label()
+        test_data = self.test_process.get_origin_data()
+        test_label = self.test_process.get_origin_label()
         return train_data, train_label, val_data, val_label, test_data, test_label
         
-    def getDlDataSet(self):
-        train_data = self.train_process.getData()
-        train_label = self.train_process.getLabel()
-        val_data = self.val_process.getData()
-        val_label = self.val_process.getLabel()
-        test_data = self.test_process.getData()
-        test_label = self.test_process.getLabel()
-        trainSet = DlDataset(train_data, train_label)
-        valSet = DlDataset(val_data, val_label)
-        testSet = DlDataset(test_data, test_label)
+    def get_dl_dataset(self):
+        """
+        Prepares the deep learning dataset for training, validation, and testing.
+
+        Returns:
+        -------
+        tuple of dataloaders
+            The dataloaders for train, validation, and test sets.
+        """
+        train_data = self.train_process.get_data()
+        train_label = self.train_process.get_label()
+        val_data = self.val_process.get_data()
+        val_label = self.val_process.get_label()
+        test_data = self.test_process.get_data()
+        test_label = self.test_process.get_label()
+        trainSet = dl_dataset(train_data, train_label)
+        valSet = dl_dataset(val_data, val_label)
+        testSet = dl_dataset(test_data, test_label)
         return trainSet, valSet, testSet
 
     # Get mearching learning data of xgboost
-    def getMlDataSet(self):
+    def get_ml_dataset(self):
+        """
+        Prepares the machine learning dataset for temporal models like xgboost.
+
+        Returns:
+        -------
+        tuple of torch.Tensor
+            The machine learning datasets for train, validation, and test sets.
+
+        Raises:
+        ------
+        AssertionError
+            If the type is not 'temporal'.
+        """
         if self.type != 'temporal':
             raise AssertionError("Ml models only support temporal data!")
-        train_data = self.train_process.getData()
+        train_data = self.train_process.get_data()
         train_data = train_data.view(train_data.shape[0], -1)
         # print(f'train_data.shape is {train_data.shape}')
-        train_label = self.train_process.getLabel()
-        val_data = self.val_process.getData()
+        train_label = self.train_process.get_label()
+        val_data = self.val_process.get_data()
         val_data = val_data.view(val_data.shape[0], -1)
-        val_label = self.val_process.getLabel()
-        test_data = self.test_process.getData()
+        val_label = self.val_process.get_label()
+        test_data = self.test_process.get_data()
         test_data = test_data.view(test_data.shape[0], -1)
-        test_label = self.test_process.getLabel()
-        trainSet = MlDataset(train_data, train_label)
-        valSet = MlDataset(val_data, val_label)
-        testSet = MlDataset(test_data, test_label)
+        test_label = self.test_process.get_label()
+        trainSet = ml_dataset(train_data, train_label)
+        valSet = ml_dataset(val_data, val_label)
+        testSet = ml_dataset(test_data, test_label)
         return trainSet, valSet, testSet
 
     # Get Mearchine learning data of SEIR、SIR、ARIMA
-    def getMlDataSetWithoutDivide(self):
+    def get_ml_dataset_without_divide(self):
+        """
+        Prepares the machine learning dataset without dividing by temporal features
+        for models like SEIR, SIR, ARIMA.
+
+        Returns:
+        -------
+        tuple of torch.Tensor
+            The datasets for train, validation, and test sets.
+
+        Raises:
+        ------
+        AssertionError
+            If the type is not 'temporal'.
+        """
         if self.type != 'temporal':
             raise AssertionError("Ml models only support temporal data!")
-        train_data = self.train_process.getMlData()
-        train_label = self.train_process.getMlLabel()
-        val_data = self.val_process.getMlData()
-        val_label = self.val_process.getMlLabel()
-        test_data = self.test_process.getMlData()
-        test_label = self.test_process.getMlLabel()
-        trainSet = MlDataset(train_data, train_label)
-        valSet = MlDataset(val_data, val_label)
-        testSet = MlDataset(test_data, test_label)
+        train_data = self.train_process.get_ml_data()
+        train_label = self.train_process.get_ml_label()
+        val_data = self.val_process.get_ml_data()
+        val_label = self.val_process.get_ml_label()
+        test_data = self.test_process.get_ml_data()
+        test_label = self.test_process.get_ml_label()
+        trainSet = ml_dataset(train_data, train_label)
+        valSet = ml_dataset(val_data, val_label)
+        testSet = ml_dataset(test_data, test_label)
         return trainSet, valSet, testSet
 
-    def getFeaturesNum(self):
-        train_features_num = self.train_process.getData().shape[-1]
-        val_features_num = self.val_process.getData().shape[-1]
-        test_features_num = self.test_process.getData().shape[-1]
+    def get_features_num(self):
+        """
+        Retrieves the number of features in the datasets.
+
+        Returns:
+        -------
+        int
+            The number of features.
+
+        Raises:
+        ------
+        AssertionError
+            If the number of features is not consistent across datasets.
+        """
+        train_features_num = self.train_process.get_data().shape[-1]
+        val_features_num = self.val_process.get_data().shape[-1]
+        test_features_num = self.test_process.get_data().shape[-1]
         if train_features_num != val_features_num or val_features_num != test_features_num:
             raise AssertionError("the numbers of features are not equal in train set, validation set and test set!")
         return train_features_num
 
-    def getPositionNum(self):
-        if self.type != 'spatio-temporal':
-            raise AssertionError("Only spatio-temporal models need the number of positions")
-        return self.train_process.getData().shape[1]
+    def get_position_num(self):
+        """
+        Retrieves the number of positions for spatial-temporal data.
+
+        Returns:
+        -------
+        int
+            The number of positions.
+
+        Raises:
+        ------
+        AssertionError
+            If the type is not 'spatial-temporal'.
+        """
+        if self.type != 'spatial-temporal':
+            raise AssertionError("Only spatial-temporal models need the number of positions")
+        return self.train_process.get_data().shape[1]
 
     def reverse_test_norm(self, label, data= None):
+        """
+        Reverses the normalization for test data.
+
+        Parameters:
+        ----------
+        label : torch.Tensor
+            The label tensor to reverse normalize.
+        data : torch.Tensor, optional
+            The data tensor to reverse normalize, by default None.
+
+        Returns:
+        -------
+        torch.Tensor or tuple of torch.Tensor
+            The reverse normalized label and, if provided, data.
+        """
         return self.test_process.reverse_normalization(label, data)
+
+    def get_static_dim(self):
+        """
+        Retrieves the dimensionality of the static data.
+
+        Returns:
+        -------
+        int
+            The dimensionality of the static data.
+        """
+        return self.static_data.shape[-1]
+    
+    def get_dynamic_dim(self):
+        """
+        Retrieves the dimensionality of the dynamic data.
+
+        Returns:
+        -------
+        int
+            The dimensionality of the dynamic data.
+        """
+        return self.dynamic_data.shape[-1]
+        

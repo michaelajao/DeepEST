@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
 from torch_geometric.nn import GATConv
-from models.dl_models.dl_base import spatio_temporal_model
+from models.dl_models.dl_base import spatial_temporal_model
 
 
 class GATLayer(nn.Module):
@@ -37,7 +37,7 @@ class GRULayer(nn.Module):
         return output
 
 
-class STPModel(spatio_temporal_model):
+class STPModel(spatial_temporal_model):
     def __init__(
         self,
         input_size: int,

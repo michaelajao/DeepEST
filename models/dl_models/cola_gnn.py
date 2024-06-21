@@ -5,14 +5,24 @@ import numpy as np
 import math
 import torch.nn.functional as F
 import scipy.sparse as sp
-from models.dl_models.dl_base import spatio_temporal_model
+from models.dl_models.dl_base import spatial_temporal_model
 from torch.nn import Parameter
 
 
 def normalize_adj2(adj):
-    """Symmetrically normalize adjacency matrix."""
-    # print(adj.shape)
-    # adj += sp.eye(adj.shape[0])
+    """
+    Symmetrically normalize the adjacency matrix of a graph.
+
+    Parameters:
+    ----------
+    adj : scipy.sparse matrix
+        The adjacency matrix of the graph.
+
+    Returns:
+    -------
+    scipy.sparse matrix
+        The symmetrically normalized adjacency matrix.
+    """
     adj = sp.coo_matrix(adj)
     rowsum = np.array(adj.sum(1))
     d_inv_sqrt = np.power(rowsum, -0.5).flatten()
@@ -22,7 +32,19 @@ def normalize_adj2(adj):
 
 
 def sparse_mx_to_torch_sparse_tensor(sparse_mx):
-    """Convert a scipy sparse matrix to a torch sparse tensor."""
+    """
+    Convert a scipy sparse matrix to a PyTorch sparse tensor.
+
+    Parameters:
+    ----------
+    sparse_mx : scipy.sparse matrix
+        A sparse matrix.
+
+    Returns:
+    -------
+    torch.sparse.FloatTensor
+        A PyTorch sparse tensor.
+    """
     sparse_mx = sparse_mx.tocoo().astype(np.float32)
     if len(sparse_mx.row) == 0 or len(sparse_mx.col) == 0:
         print(sparse_mx.row, sparse_mx.col)
@@ -34,6 +56,32 @@ def sparse_mx_to_torch_sparse_tensor(sparse_mx):
 
 
 class GraphConvLayer(nn.Module):
+    """
+    A graph convolutional layer module.
+
+    Parameters:
+    ----------
+    in_features : int
+        Number of input features.
+    out_features : int
+        Number of output features.
+    bias : bool, optional
+        If set to True, the layer will have a bias term, by default True.
+
+    Attributes:
+    ----------
+    weight : torch.Tensor
+        The weight tensor for the linear transformation.
+    bias : torch.Tensor, optional
+        The bias tensor, if bias is True.
+
+    Methods:
+    -------
+    forward(feature, adj)
+        Forward pass of the graph convolutional layer.
+    __repr__
+        String representation of the layer.
+    """
     def __init__(self, in_features, out_features, bias=True):
         super(GraphConvLayer, self).__init__()
         self.in_features = in_features
@@ -63,7 +111,38 @@ class GraphConvLayer(nn.Module):
                + str(self.out_features) + ')'
 
 
-class cola_gnn(spatio_temporal_model):
+class cola_gnn(spatial_temporal_model):
+    """
+    A Graph Neural Network model for spatio-temporal data, named 'cola_gnn'.
+
+    Parameters:
+    ----------
+    input_size : int
+        Input feature size.
+    num_positions : int
+        Number of positions or nodes in the graph.
+    input_window : int
+        Size of the input time window.
+    output_window : int
+        Size of the output time window.
+    origin_adj : torch.Tensor
+        The original adjacency matrix of the graph.
+    hidden_size : int, optional
+        Size of the hidden layers, by default 64.
+    kernels : int, optional
+        Number of kernels in the convolutional layers, by default 10.
+    n_layer : int, optional
+        Number of layers in the RNN, by default 1.
+    dropout : float, optional
+        Dropout rate, by default 0.5.
+    
+    Methods:
+    -------
+    init_weights()
+        Initialize the weights of the model.
+    forward(x, feat=None)
+        Forward pass of the 'cola_gnn' model.
+    """
     def __init__(
         self,
         input_size: int,

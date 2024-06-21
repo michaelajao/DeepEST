@@ -11,19 +11,31 @@ from plotly.offline import iplot
 
 
 def visualize_graph_from_edges(edges_index, node_names=None):
+    """
+    Visualizes a graph from edge indices using Plotly.
+
+    Parameters:
+    ----------
+    edges_index : torch.Tensor
+        A 2D tensor containing the indices of the edges in the graph.
+        The tensor should have shape [2, N] where N is the number of edges.
+    node_names : list of str, optional
+        A list of names for the nodes in the graph. If None, default names will be generated.
+
+    Returns:
+    -------
+    None
+        Visualizes the graph using Plotly.
+    """
     edge_indices = edges_index.to_sparse().coalesce().indices()
-    # 创建 NetworkX 图
     G = nx.Graph()
-    # 添加边到图中
     for i in range(edge_indices.size(1)):
         x = edge_indices[0, i].item()
         y = edge_indices[1, i].item()
         G.add_edge(x, y)
 
-    # 估计节点位置（随机布局）
     nodes_positions = nx.random_layout(G)
 
-    # 绘制边
     edge_x = []
     edge_y = []
     for edge in G.edges():
@@ -38,7 +50,6 @@ def visualize_graph_from_edges(edges_index, node_names=None):
         hoverinfo='none',
         mode='lines')
 
-    # 绘制节点
     node_x = []
     node_y = []
     node_text = []
@@ -53,9 +64,9 @@ def visualize_graph_from_edges(edges_index, node_names=None):
 
     node_trace = go.Scatter(
         x=node_x, y=node_y,
-        mode='markers+text',  # 添加 text 模式
+        mode='markers+text', 
         text=node_text,
-        textposition='top center',  # 文本显示在节点上方
+        textposition='top center',  
         hoverinfo='text',
         marker=dict(
             showscale=True,
@@ -78,30 +89,19 @@ def visualize_graph_from_edges(edges_index, node_names=None):
                         hovermode='closest',
                         margin=dict(b=20, l=5, r=5, t=40),
                         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-                        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)
+                        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                        font=dict(size=16),  
+                        legend=dict(font=dict(size=16)),  
+                        xaxis_title_font=dict(size=16),
+                        yaxis_title_font=dict(size=16)
                     ))
     fig.show()
 
 if __name__ == "__main__":
-    # claim_data = torch.Tensor(pd.read_pickle('../data/claim_tensor.pkl'))
-    # county_data = torch.Tensor(pd.read_pickle('../data/county_tensor.pkl'))
-    # hospitalizations_data = torch.Tensor(pd.read_pickle('../data/hospitalizations.pkl'))
-    # distance_matrix = torch.Tensor(pd.read_pickle('../data/distance_mat.pkl'))
-    # data_time = pd.read_pickle('../data/date_range.pkl') # 这个是list
-    # dynamic_data = torch.cat((claim_data, torch.unsqueeze(hospitalizations_data, -1)), -1)
-    # static_data = county_data
-    # label = torch.unsqueeze(hospitalizations_data, -1)
-    # dynamic_data = dynamic_data[:50]
-    # static_data = static_data[:50]
-    # label = label[:50]
-    # threshold = 5000
-    # nodes_count = 50
-    # edges_index = construct_adjacency_matrix(static_data, threshold)
     rows = torch.tensor([0, 1, 1, 2, 3])
     cols = torch.tensor([1, 0, 2, 3, 1])
-    values = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])  # 假设对应的值
-    # 构建稀疏张量
+    values = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0]) 
     edges_index = torch.sparse_coo_tensor(indices=torch.stack((rows, cols)), values=values, size=(4, 4))
     nodes_count = edges_index.shape[0]
-    node_names = [f'Node {i}' for i in range(nodes_count)]  # 示例节点名称
+    node_names = [f'Node {i}' for i in range(nodes_count)] 
     visualize_graph_from_edges(edges_index, node_names)

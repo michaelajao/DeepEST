@@ -1,38 +1,3 @@
-# import math
-# from haversine import haversine
-# import torch
-
-# def L1_dist(loc1, loc2):
-#     x1 = loc1[0]
-#     y1 = loc1[1]
-#     x2 = loc2[0]
-#     y2 = loc2[1]
-#     return math.abs(x1 - x2) + math.abs(y1 - y2)
-
-# def L2_dist(loc1, loc2):
-#     x1 = loc1[0]
-#     y1 = loc1[1]
-#     x2 = loc2[0]
-#     y2 = loc2[1]
-#     return (x1 - x2) ** 2 + (y1 - y2) ** 2
-
-# def haversine_dist(loc1, loc2):
-#     lat1, lng1 = loc1[0], loc1[1]
-#     lat2, lng2 = loc2[0], loc2[1]
-#     return haversine((lat1, lng1), (lat2, lng2))
-
-# def get_graph(adj_matrix, threshold):
-#     g = []
-#     rows = []
-#     cols = []
-#     for i in range(len(adj_matrix)):
-#         for j in range(len(adj_matrix[i])):
-#             if adj_matrix[i][j] <= threshold:
-#                 rows.append(i)
-#                 cols.append(j)
-#     g.append(rows)
-#     g.append(cols)
-#     return torch.tensor(g)
 
 import torch
 import numpy as np
