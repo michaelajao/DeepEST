@@ -2,8 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 from scipy.optimize import curve_fit
+from DeepEST.models.ml_models.ml_base import ml_model
 
-class SIR:
+
+class SIR(ml_model):
     """
     Simple epidemiological SIR (Susceptible, Infected, Recovered) model.
 

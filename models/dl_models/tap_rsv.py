@@ -1,11 +1,9 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import numpy as np
-import math
+from DeepEST.models.dl_models.dl_base import spatial_temporal_model
 
 
-class TAPRSV(nn.Module):
+class TAPRSV(spatial_temporal_model):
     """
     TAPRSV (Temporal and Attribute-aware Pointer and Spatial-Variant) Model.
 

@@ -3,12 +3,13 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from DeepEST.models.dl_models.dl_base import spatial_temporal_model
 import os
 import random
 from torch.nn.utils import weight_norm
 
     
-class HOIST(nn.Module):
+class HOIST(spatial_temporal_model):
     def __init__(self, dynamic_dims, input_window, output_window, static_dims = None, distance_dims = None, rnn_dim=64, signs=None, device='cpu'):
         """
         HOIST (Harnessing spatio-temporal dynamics and interactions for forecasting) Model.

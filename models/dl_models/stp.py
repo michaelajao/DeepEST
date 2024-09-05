@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
 from torch_geometric.nn import GATConv
-from models.dl_models.dl_base import spatial_temporal_model
+from DeepEST.models.dl_models.dl_base import spatial_temporal_model
 
 
 class GATLayer(nn.Module):

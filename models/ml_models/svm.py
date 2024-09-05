@@ -3,8 +3,10 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import torch
 import numpy as np
-from models.ml_models.ml_base import ml_model
+from DeepEST.models.ml_models.ml_base import ml_model
 from sklearn.multioutput import MultiOutputRegressor
+
+
 class SVM(ml_model):
     """
     SVM model for regression tasks.

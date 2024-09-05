@@ -2,6 +2,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from DeepEST.models.dl_models.dl_base import spatial_temporal_model
 
 
 class GATLayer(nn.Module):
@@ -117,7 +118,7 @@ class MultiHeadGATLayer(nn.Module):
         return torch.stack(outs)
 
 
-class STAN(nn.Module):
+class STAN(spatial_temporal_model):
     """
     A Spatio-Temporal Attention Network (STAN) module.
 

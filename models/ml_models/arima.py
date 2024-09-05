@@ -1,7 +1,7 @@
 import pmdarima as pm
 import numpy as np
 import matplotlib.pyplot as plt
-from models.ml_models.ml_base import ml_model
+from DeepEST.models.ml_models.ml_base import ml_model
 
 
 class ARIMA(ml_model):

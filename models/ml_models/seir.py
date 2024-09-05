@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from models.ml_models.ml_base import ml_model
+from DeepEST.models.ml_models.ml_base import ml_model
 from scipy.integrate import odeint
 from scipy.optimize import curve_fit
 

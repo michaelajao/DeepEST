@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import math
 from typing import Optional, Tuple
+from DeepEST.models.dl_models.dl_base import temporal_model
 
 
 class Attention(nn.Module):
@@ -80,7 +81,7 @@ class SublayerConnection(nn.Module):
         return x + self.dropout(sublayer(self.norm(x)))
 
 
-class TransformerBlock(nn.Module):
+class TransformerBlock(temporal_model):
     """Transformer block.
 
     MultiHeadedAttention + PositionwiseFeedForward + SublayerConnection

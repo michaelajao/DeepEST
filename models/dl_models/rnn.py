@@ -1,5 +1,5 @@
 import torch.nn as nn
-from models.dl_models.dl_base import temporal_model, PredictionHead
+from DeepEST.models.dl_models.dl_base import temporal_model, PredictionHead
 
 
 class RNN(temporal_model):

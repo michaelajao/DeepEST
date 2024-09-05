@@ -1,5 +1,5 @@
 from torch.utils.data import DataLoader
-from datasets import dl_dataset, ml_dataset
+from .dataset import dl_dataset, ml_dataset
 import torch
 
 def get_dataloader(

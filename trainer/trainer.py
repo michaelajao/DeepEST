@@ -3,7 +3,9 @@ import numpy as np
 import torch
 import os
 import sys
-sys.path.append("../")
+cwd = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(cwd, ".."))
+sys.path.insert(0, os.path.join(cwd, "."))
 from torch import nn
 from torch.optim import Optimizer
 from torch.utils.data import DataLoader

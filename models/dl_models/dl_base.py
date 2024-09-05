@@ -1,6 +1,5 @@
 import torch.nn as nn
 
-
 class dl_model(nn.Module):
     """
     Base class for deep learning models.

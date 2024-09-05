@@ -2,7 +2,7 @@ import lightgbm as lgb
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
-from models.ml_models.ml_base import ml_model
+from DeepEST.models.ml_models.ml_base import ml_model
 import matplotlib.pyplot as plt
 import torch
 import numpy as np

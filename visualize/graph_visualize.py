@@ -3,9 +3,6 @@ import networkx as nx
 import torch
 import pandas as pd
 import sys
-# sys.path.append("../")
-from models import *
-from trainer import *
 from plotly.offline import iplot
 
 

@@ -1,11 +1,11 @@
-from dl_models import cola_gnn, GRU, Transformer, RNN, LSTM, STPModel,STAN, HOIST, TAPRSV
-from ml_models import ARIMA, SIR, SEIR, XGBoost, RandomForest, LightGBM, SVM
+from DeepEST.models.dl_models import cola_gnn, GRU, Transformer, RNN, LSTM, STPModel,STAN, HOIST, TAPRSV
+from DeepEST.models.ml_models import ARIMA, SIR, SEIR, XGBoost, RandomForest, LightGBM, SVM
 from typing import Optional
 import torch
 import dgl
 import sys
 sys.path.append("../")
-from datasets import preprocess_data
+from DeepEST.datasets.preprocess import preprocess_data
 
 dl_model_dict = {
     "colagnn": cola_gnn,

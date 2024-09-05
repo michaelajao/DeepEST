@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
-from models.ml_models.ml_base import ml_model
+from DeepEST.models.ml_models.ml_base import ml_model
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error
 

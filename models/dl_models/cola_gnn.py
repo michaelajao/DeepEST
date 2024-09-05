@@ -5,7 +5,7 @@ import numpy as np
 import math
 import torch.nn.functional as F
 import scipy.sparse as sp
-from models.dl_models.dl_base import spatial_temporal_model
+from DeepEST.models.dl_models.dl_base import spatial_temporal_model
 from torch.nn import Parameter
 
 
